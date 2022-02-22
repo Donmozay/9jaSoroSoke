@@ -1,6 +1,7 @@
 using _9jasorosoke.Interface;
 using _9jasorosoke.Repositories.DataAccess;
 using _9jasorosoke.Repositories.Models;
+using _9jasorosoke.Repositories.Repository;
 using _9jaSoroSoke.Domain.Factories;
 using _9jaSoroSoke.Domain.Models;
 using _9jaSoroSoke.Domain.Services;
@@ -36,6 +37,7 @@ namespace _9jaSoroSoke
             services.AddScoped<ICarOwner, CarOwner>();
             services.AddScoped<IFuelingStationOwner, FuelingStationOwner>();
             services.AddScoped<IGeneralFactories, GeneralFactories>();
+            services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IGeneralService, GeneralService>();
             services.AddScoped<ICarOwnerViewModel, CarOwnerViewModel>();
         }
