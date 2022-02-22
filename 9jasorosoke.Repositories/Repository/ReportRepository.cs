@@ -1,8 +1,12 @@
 ﻿using _9jasorosoke.Interface;
 using _9jasorosoke.Repositories.DataAccess;
+using _9jasorosoke.Repositories.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace _9jasorosoke.Repositories.Repository
 {
@@ -15,5 +19,47 @@ namespace _9jasorosoke.Repositories.Repository
             _databaseManager = databaseManager;
 
         }
+
+        public async Task<IEnumerable<ICarOwner>> GetCarOwnerReports()
+        {
+            using (IDbConnection conn = await _databaseManager.DatabaseConnection())
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                DynamicParameters parameters = new DynamicParameters();
+                var record = await conn.QueryMultipleAsync("[dbo].[usp_Get_CarOnwers_Reports]", parameters, commandType: CommandType.StoredProcedure);
+                var result = await record.ReadAsync<CarOwner>();
+                var value = result.AsList();
+                return value;
+            }
+        }
+
+
+        public async Task<string> SaveReport(ICarOwnerViewModel carOwnerReport)
+        {
+            var result = string.Empty;
+           
+            try
+            {
+                using (IDbConnection conn = await _databaseManager.DatabaseConnection())
+                {
+                    if (conn.State == ConnectionState.Closed) conn.Open();
+                    DynamicParameters parameters = new DynamicParameters();
+                    parameters.Add("@PurchaseReciept", carOwnerReport.PurchaseReciept);
+                    parameters.Add("@PurchaseReciept", carOwnerReport.PurchaseReciept);
+                    parameters.Add("@DateReported",DateTime.Now);
+                    var respone = conn.Execute("[dbo].[usp_Insert_CarOwner]", parameters, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                result = string.Format("SaveReport - {0} , {1}", e.Message,
+                    e.InnerException != null ? e.InnerException.Message : "");
+            }
+            return result;
+        }
+
     }
 }

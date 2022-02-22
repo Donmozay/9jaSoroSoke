@@ -1,6 +1,9 @@
 using _9jasorosoke.Interface;
 using _9jasorosoke.Repositories.DataAccess;
 using _9jasorosoke.Repositories.Models;
+using _9jaSoroSoke.Domain.Factories;
+using _9jaSoroSoke.Domain.Models;
+using _9jaSoroSoke.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,9 +31,13 @@ namespace _9jaSoroSoke
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<DatabaseManager>();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(ConnectionString.MyConnectionString));
             services.AddScoped<ICarOwner, CarOwner>();
             services.AddScoped<IFuelingStationOwner, FuelingStationOwner>();
+            services.AddScoped<IGeneralFactories, GeneralFactories>();
+            services.AddScoped<IGeneralService, GeneralService>();
+            services.AddScoped<ICarOwnerViewModel, CarOwnerViewModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
