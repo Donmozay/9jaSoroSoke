@@ -19,7 +19,7 @@ namespace _9jasorosoke.Repositories.Repository
             _databaseManager = databaseManager;
 
         }
-
+        #region ------------------ Car Owner Report ----------------------------
         public async Task<IEnumerable<ICarOwner>> GetCarOwnerReports()
         {
             using (IDbConnection conn = await _databaseManager.DatabaseConnection())
@@ -28,7 +28,7 @@ namespace _9jasorosoke.Repositories.Repository
                     conn.Open();
                 DynamicParameters parameters = new DynamicParameters();
                 var record = await conn.QueryMultipleAsync("[dbo].[usp_Get_CarOnwers_Reports]", parameters, commandType: CommandType.StoredProcedure);
-                var result = await record.ReadAsync<CarOwner>();
+                var result = await record.ReadAsync<CarOwnerModel>();
                 var value = result.AsList();
                 return value;
             }
@@ -75,11 +75,74 @@ namespace _9jasorosoke.Repositories.Repository
                     conn.Open();
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Id", id);
-                var record = await conn.QueryFirstOrDefaultAsync<CarOwner>("[dbo].[usp_Get_CarOnwer_Reports_By_Id]", parameters, commandType: CommandType.StoredProcedure);
+                var record = await conn.QueryFirstOrDefaultAsync<CarOwnerModel>("[dbo].[usp_Get_CarOnwer_Reports_By_Id]", parameters, commandType: CommandType.StoredProcedure);
 
                 return record;
             }
         }
+        #endregion
 
+
+        #region ------------------ Company Owner Report ----------------------------
+        public async Task<IEnumerable<ICompanyOwner>> GetCompanyOwnerReports()
+        {
+            using (IDbConnection conn = await _databaseManager.DatabaseConnection())
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                DynamicParameters parameters = new DynamicParameters();
+                var record = await conn.QueryMultipleAsync("[dbo].[usp_Get_CarOnwers_Reports]", parameters, commandType: CommandType.StoredProcedure);
+                var result = await record.ReadAsync<CompanyOwnerModel>();
+                var value = result.AsList();
+                return value;
+            }
+        }
+
+
+        public async Task<string> SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwner)
+        {
+            var result = string.Empty;
+
+            try
+            {
+                using (IDbConnection conn = await _databaseManager.DatabaseConnection())
+                {
+                    if (conn.State == ConnectionState.Closed) conn.Open();
+                    DynamicParameters parameters = new DynamicParameters();
+                    parameters.Add("@CompanyAddress", companyOwner.CompanyAddress);
+                    parameters.Add("@CompanyName", companyOwner.CompanyName);
+                    parameters.Add("@CompanyPhoneNumber", companyOwner.CompanyPhoneNumber);
+                    parameters.Add("@FuelDepotAddress", companyOwner.FuelDepotAddress);
+                    parameters.Add("@FuelDepotName", companyOwner.FuelDepotName);
+                    parameters.Add("@DatePurchased", companyOwner.DatePurchased);
+                    parameters.Add("@PurchaseReciept", companyOwner.PurchaseReciept);
+                    parameters.Add("@DateReported", DateTime.Now);
+                    var respone = conn.Execute("[dbo].[usp_Insert_CompanyOwner_Report]", parameters, commandType: CommandType.StoredProcedure);
+                    conn.Close();
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                result = string.Format("Save Compant Owner Report - {0} , {1}", e.Message,
+                    e.InnerException != null ? e.InnerException.Message : "");
+            }
+            return result;
+        }
+
+        public async Task<ICompanyOwner> GetCompanyOwnerReportById(int id)
+        {
+            using (IDbConnection conn = await _databaseManager.DatabaseConnection())
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Id", id);
+                var record = await conn.QueryFirstOrDefaultAsync<CompanyOwnerModel>("[dbo].[usp_Get_CompanyOnwer_Reports_By_Id]", parameters, commandType: CommandType.StoredProcedure);
+
+                return record;
+            }
+        }
+        #endregion
     }
 }

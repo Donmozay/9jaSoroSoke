@@ -9,6 +9,8 @@ namespace _9jaSoroSoke.Domain.Factories
 {
     public class GeneralFactories: IGeneralFactories
     {
+        #region ------------------ Car Owner Report ----------------------------
+
         public ICarOwnerViewModel CreateCarownerView(string processingMessage)
         {
             var view = new CarOwnerViewModel
@@ -18,6 +20,19 @@ namespace _9jaSoroSoke.Domain.Factories
             return view;
         }
 
-        
+        #endregion
+
+
+        #region ------------------ Company Owner Report ----------------------------
+
+        public ICompanyOwnerViewModel CreateCompanyOwnerView(string processingMessage)
+        {
+            var view = new CompanyOwnerViewModel
+            {
+                ProcessingMessage = processingMessage ?? "",
+            };
+            return view;
+        }
+        #endregion
     }
 }

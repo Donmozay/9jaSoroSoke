@@ -32,6 +32,8 @@ namespace _9jaSoroSoke.Domain.Services
             _generalFactories = generalFactories;
         }
 
+        #region ------------------ Car Owner Report ----------------------------
+
         public Task<IEnumerable<ICarOwner>> GetCarOwnerReports()
         {
             var reports =  _reportRepository.GetCarOwnerReports();
@@ -100,5 +102,57 @@ namespace _9jaSoroSoke.Domain.Services
             }
             return  _reportRepository.SaveReport(carOwnerReport);
         }
+        #endregion
+
+        #region ------------------ Company Owner Report ----------------------------
+
+        public Task<IEnumerable<ICompanyOwner>> GetCompanyOwnerReports()
+        {
+            var reports = _reportRepository.GetCompanyOwnerReports();
+
+            return reports;
+        }
+
+        public Task<ICompanyOwner> GetCompanyOwnerReporById(int id)
+        {
+            var reports = _reportRepository.GetCompanyOwnerReportById(id);
+
+            return reports;
+        }
+
+        public ICompanyOwnerViewModel CreateCompanyOwnerView(string processingMessage)
+        {
+            return _generalFactories.CreateCompanyOwnerView(processingMessage);
+        }
+        public ICompanyOwnerViewModel CreateCompanyOwnerView(ICompanyOwnerViewModel viewModel, string message)
+        {
+            return viewModel;
+        }
+
+        public Task<string> SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwnerReport)
+        {
+            var file = companyOwnerReport.File;
+
+            var uploadResult = new ImageUploadResult();
+
+            if (file != null)
+            {
+                if (file.Length! > 5120)
+                {
+                    using (var stream = file.OpenReadStream())
+                    {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.Name, stream),
+                            Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
+                        };
+                        uploadResult = cloudinary.Upload(uploadParams);
+                    }
+                    companyOwnerReport.PurchaseReciept = uploadResult?.Url?.ToString();
+                }
+                }
+            return _reportRepository.SaveCompanyOwnerReport(companyOwnerReport);
+        }
+        #endregion
     }
 }

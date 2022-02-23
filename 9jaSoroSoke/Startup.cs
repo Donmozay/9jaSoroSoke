@@ -34,7 +34,7 @@ namespace _9jaSoroSoke
             services.AddControllersWithViews();
             services.AddSingleton<DatabaseManager>();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(ConnectionString.MyConnectionString));
-            services.AddScoped<ICarOwner, CarOwner>();
+            services.AddScoped<ICarOwner, CarOwnerModel>();
             services.AddScoped<IFuelingStationOwner, FuelingStationOwner>();
             services.AddScoped<IGeneralFactories, GeneralFactories>();
             services.AddScoped<IReportRepository, ReportRepository>();

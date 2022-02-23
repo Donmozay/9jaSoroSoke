@@ -6,7 +6,7 @@ using System.Text;
 
 namespace _9jasorosoke.Repositories.Models
 {
-    public class CarOwner: ICarOwner
+    public class CarOwnerModel: ICarOwner
     {
         public int Id { get; set; }
 

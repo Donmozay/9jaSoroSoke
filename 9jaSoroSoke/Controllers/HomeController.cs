@@ -29,6 +29,8 @@ namespace _9jaSoroSoke.Controllers
             return View();
         }
 
+        #region ------------------ Car Owner Report ----------------------------
+
         [HttpGet]
         public async Task<IActionResult> VeiwDetails(int id)
         {
@@ -76,7 +78,63 @@ namespace _9jaSoroSoke.Controllers
                 return View("AddReport", model);
             }
 
-            return this.RedirectToAction("GetCarOwnersReports", "Home");
+            return this.RedirectToAction("CarOwnersReports", "Home");
         }
+
+        #endregion
+
+
+        #region ------------------ Company Owner Report ----------------------------
+        [HttpGet]
+        public async Task<IActionResult> CompanyOwnerDetails(int id)
+        {
+            var view = await _generalService.GetCarOwnerReporByIds(id);
+
+            return View("CompanyOwnerDetails", view);
+        }
+        [HttpGet]
+        public async Task<IActionResult> CompanyOwnersReports()
+        {
+            var view = await _generalService.GetCarOwnerReports();
+
+            return View("CompanyOwnersReports", view);
+        }
+        public IActionResult CompanyOwnersReport()
+        {
+            return View("CompanyOwnersReport");
+        }
+
+        [HttpGet]
+        public IActionResult AddCompanyOwnerReport(string processingMessage)
+        {
+            var view = _generalService.CreateCarownerView(processingMessage);
+            return View("AddCompanyOwnerReport", view);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCompanyOwnerReport([FromForm] CompanyOwnerViewModel companyOwnerReport)
+        {
+            string processingMessage = string.Empty;
+            if (companyOwnerReport == null)
+            {
+                throw new ArgumentNullException(nameof(companyOwnerReport));
+            }
+            if (!ModelState.IsValid)
+            {
+                var model = this._generalService.CreateCompanyOwnerView(companyOwnerReport, processingMessage);
+                return View("AddCompanyOwnerReport", model);
+            };
+            var returnInfo = await this._generalService.SaveCompanyOwnerReport(companyOwnerReport);
+
+            if (!string.IsNullOrEmpty(returnInfo))
+            {
+                var model = this._generalService.CreateCompanyOwnerView(companyOwnerReport, processingMessage);
+                return View("AddCompanyOwnerReport", model);
+            }
+
+            return this.RedirectToAction("CompanyOwnersReports", "Home");
+        }
+
+        #endregion
     }
 }
