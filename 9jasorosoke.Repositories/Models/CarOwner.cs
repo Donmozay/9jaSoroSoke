@@ -17,5 +17,8 @@ namespace _9jasorosoke.Repositories.Models
         public string PurchaseReciept { get; set; }
 
         public DateTime DateReported { get; set; }
+
+        public IList<ICarOwner> carOwners { get; set; }
+
     }
 }

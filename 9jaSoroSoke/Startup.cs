@@ -40,6 +40,7 @@ namespace _9jaSoroSoke
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IGeneralService, GeneralService>();
             services.AddScoped<ICarOwnerViewModel, CarOwnerViewModel>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

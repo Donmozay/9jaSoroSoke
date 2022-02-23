@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace _9jaSoroSoke.Domain.Models
 {
@@ -13,6 +14,7 @@ namespace _9jaSoroSoke.Domain.Models
         public string ProofOfVehicleOwnerShip { get; set; }
         public string PurchaseReciept { get; set; }
         [Required]
-        public IFormFile File { get; set; }
+        public IList<IFormFile> File { get; set; }
+        public IList<ICarOwner> carOwners { get; set; }
     }
 }

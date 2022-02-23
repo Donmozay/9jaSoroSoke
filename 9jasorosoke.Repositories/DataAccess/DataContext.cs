@@ -9,8 +9,5 @@ namespace _9jasorosoke.Repositories.DataAccess
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-        //public DbSet<CarOwner> CarOwners { get; set; }
-        //public DbSet<FuelingStationOwner> FuelingStationOwners { get; set; }
-
     }
 }

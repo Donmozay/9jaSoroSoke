@@ -36,7 +36,7 @@ namespace _9jaSoroSoke.Domain.Services
         {
             var reports =  _reportRepository.GetCarOwnerReports();
 
-            return  reports;
+            return reports;
         }
 
 
@@ -48,6 +48,7 @@ namespace _9jaSoroSoke.Domain.Services
         {
             return viewModel;
         }
+
         public Task<string> SaveReport(ICarOwnerViewModel carOwnerReport)
         {
             var file = carOwnerReport.File;
@@ -56,22 +57,40 @@ namespace _9jaSoroSoke.Domain.Services
 
             if (file != null)
             {
-                if (file.Length !> 10)
+                foreach (var item in file)
                 {
-                    using (var stream = file.OpenReadStream())
+                    if (item.Length! > 10)
                     {
-                        var uploadParams = new ImageUploadParams()
+                        if (item == file[0])
                         {
-                            File = new FileDescription(file.Name, stream),
-                            Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
-                        };
-                        uploadResult = cloudinary.Upload(uploadParams);
+                            using (var stream = item.OpenReadStream())
+                            {
+                                var uploadParams = new ImageUploadParams()
+                                {
+                                    File = new FileDescription(item.Name, stream),
+                                    Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
+                                };
+                                uploadResult = cloudinary.Upload(uploadParams);
+                            }
+
+                            carOwnerReport.ProofOfVehicleOwnerShip = uploadResult?.Url?.ToString();
+                        }
+                        else
+                        {
+                            using (var stream = item.OpenReadStream())
+                            {
+                                var uploadParams = new ImageUploadParams()
+                                {
+                                    File = new FileDescription(item.Name, stream),
+                                    Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
+                                };
+                                uploadResult = cloudinary.Upload(uploadParams);
+                            }
+                            carOwnerReport.PurchaseReciept = uploadResult?.Url?.ToString();
+                        }
                     }
                 }
             }
-            carOwnerReport.ProofOfVehicleOwnerShip = uploadResult?.Url?.ToString();
-            carOwnerReport.PurchaseReciept = uploadResult?.Url?.ToString();
-
             return  _reportRepository.SaveReport(carOwnerReport);
         }
     }

@@ -41,11 +41,11 @@ namespace _9jaSoroSoke.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCarOwnersReports()
+        public async Task <IActionResult> GetCarOwnersReports()
         {
-            var view = _generalService.GetCarOwnerReports();
+            var view = await _generalService.GetCarOwnerReports();
 
-            return PartialView("GetCarOwnersReports", view);
+            return View("GetCarOwnersReports", view);
         }
         public IActionResult CarOwnersReports()
         {
@@ -80,7 +80,7 @@ namespace _9jaSoroSoke.Controllers
                 return View("AddReport", model);
             }
 
-            return this.RedirectToAction("AddReport", "Authentication", new { errorMessage = "The Email Provided already exist...." });
+            return this.RedirectToAction("AddReport", "Home");
         }
     }
 }

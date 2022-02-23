@@ -46,7 +46,7 @@ namespace _9jasorosoke.Repositories.Repository
                     if (conn.State == ConnectionState.Closed) conn.Open();
                     DynamicParameters parameters = new DynamicParameters();
                     parameters.Add("@PurchaseReciept", carOwnerReport.PurchaseReciept);
-                    parameters.Add("@PurchaseReciept", carOwnerReport.PurchaseReciept);
+                    parameters.Add("@ProofOfVehicleOwnerShip", carOwnerReport.ProofOfVehicleOwnerShip);
                     parameters.Add("@DateReported",DateTime.Now);
                     var respone = conn.Execute("[dbo].[usp_Insert_CarOwner]", parameters, commandType: CommandType.StoredProcedure);
                     conn.Close();
@@ -55,7 +55,7 @@ namespace _9jasorosoke.Repositories.Repository
             }
             catch (Exception e)
             {
-                result = string.Format("SaveReport - {0} , {1}", e.Message,
+                result = string.Format("Save Report - {0} , {1}", e.Message,
                     e.InnerException != null ? e.InnerException.Message : "");
             }
             return result;

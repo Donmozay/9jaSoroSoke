@@ -3,6 +3,7 @@ using _9jaSoroSoke.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace _9jaSoroSoke.Domain.Factories
 {
@@ -16,5 +17,7 @@ namespace _9jaSoroSoke.Domain.Factories
             };
             return view;
         }
+
+        
     }
 }

@@ -16,5 +16,7 @@ namespace _9jasorosoke.Interface
          string PurchaseReciept { get; set; }
 
          DateTime DateReported { get; set; }
+         IList<ICarOwner> carOwners { get; set; }
+
     }
 }

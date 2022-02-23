@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace _9jasorosoke.Interface
 {
@@ -12,6 +13,7 @@ namespace _9jasorosoke.Interface
         string ProofOfVehicleOwnerShip { get; set; }
          string PurchaseReciept { get; set; }
         [Required]
-        public IFormFile File { get; set; }
+        IList<IFormFile> File { get; set; }
+        IList<ICarOwner> carOwners { get; set; }
     }
 }
