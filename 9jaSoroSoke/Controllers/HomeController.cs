@@ -39,17 +39,23 @@ namespace _9jaSoroSoke.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
         [HttpGet]
-        public async Task <IActionResult> GetCarOwnersReports()
+        public async Task<IActionResult> VeiwDetails(int id)
+        {
+            var view = await _generalService.GetCarOwnerReporByIds(id);
+
+            return View("VeiwDetails", view);
+        }
+        [HttpGet]
+        public async Task <IActionResult> CarOwnersReports()
         {
             var view = await _generalService.GetCarOwnerReports();
 
-            return View("GetCarOwnersReports", view);
+            return View("CarOwnersReports", view);
         }
-        public IActionResult CarOwnersReports()
+        public IActionResult CarOwnersReport()
         {
-            return View("CarOwnersReports");
+            return View("CarOwnersReport");
         }
 
         [HttpGet]
@@ -80,7 +86,7 @@ namespace _9jaSoroSoke.Controllers
                 return View("AddReport", model);
             }
 
-            return this.RedirectToAction("AddReport", "Home");
+            return this.RedirectToAction("GetCarOwnersReports", "Home");
         }
     }
 }

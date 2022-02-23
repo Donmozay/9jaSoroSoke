@@ -45,8 +45,14 @@ namespace _9jasorosoke.Repositories.Repository
                 {
                     if (conn.State == ConnectionState.Closed) conn.Open();
                     DynamicParameters parameters = new DynamicParameters();
-                    parameters.Add("@PurchaseReciept", carOwnerReport.PurchaseReciept);
+                    parameters.Add("@FirstName", carOwnerReport.FirstName);
+                    parameters.Add("@LastName", carOwnerReport.LastName);
+                    parameters.Add("@PhoneNumber", carOwnerReport.PhoneNumber);
+                    parameters.Add("@PurchaseLocation", carOwnerReport.PurchaseLocation);
+                    parameters.Add("@NameOfFuelingStation", carOwnerReport.NameOfFuelingStation);
+                    parameters.Add("@DatePurchased", carOwnerReport.DatePurchased);
                     parameters.Add("@ProofOfVehicleOwnerShip", carOwnerReport.ProofOfVehicleOwnerShip);
+                    parameters.Add("@PurchaseReciept", carOwnerReport.PurchaseReciept);
                     parameters.Add("@DateReported",DateTime.Now);
                     var respone = conn.Execute("[dbo].[usp_Insert_CarOwner]", parameters, commandType: CommandType.StoredProcedure);
                     conn.Close();
@@ -59,6 +65,20 @@ namespace _9jasorosoke.Repositories.Repository
                     e.InnerException != null ? e.InnerException.Message : "");
             }
             return result;
+        }
+
+        public async Task<ICarOwner> GetCarOwnerReportById(int id)
+        {
+            using (IDbConnection conn = await _databaseManager.DatabaseConnection())
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Id", id);
+                var record = await conn.QueryFirstOrDefaultAsync<CarOwner>("[dbo].[usp_Get_CarOnwer_Reports_By_Id]", parameters, commandType: CommandType.StoredProcedure);
+
+                return record;
+            }
         }
 
     }

@@ -16,7 +16,30 @@ namespace _9jasorosoke.Repositories.Models
         [Required]
         public string PurchaseReciept { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string PurchaseLocation { get; set; }
+
+        [Required]
+        [StringLength(250)]
+        public string NameOfFuelingStation { get; set; }
+
+        [Required]
+        public DateTime DatePurchased { get; set; }
+
         public DateTime DateReported { get; set; }
+
+        [Required]
+        [RegularExpression(@"^(\+?[0-9]+)$", ErrorMessage = "Invalid Mobile Number")]
+        public string PhoneNumber { get; set; }
 
         public IList<ICarOwner> carOwners { get; set; }
 

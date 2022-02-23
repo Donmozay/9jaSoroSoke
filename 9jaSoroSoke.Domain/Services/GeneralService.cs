@@ -39,6 +39,13 @@ namespace _9jaSoroSoke.Domain.Services
             return reports;
         }
 
+        public Task<ICarOwner> GetCarOwnerReporByIds(int id)
+        {
+            var reports = _reportRepository.GetCarOwnerReportById(id);
+
+            return reports;
+        }
+
 
         public ICarOwnerViewModel CreateCarownerView(string processingMessage)
         {
@@ -59,7 +66,7 @@ namespace _9jaSoroSoke.Domain.Services
             {
                 foreach (var item in file)
                 {
-                    if (item.Length! > 10)
+                    if (item.Length! > 5120)
                     {
                         if (item == file[0])
                         {

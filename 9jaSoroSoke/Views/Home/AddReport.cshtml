@@ -9,16 +9,50 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form  enctype="multipart/form-data"  asp-controller="Home" asp-action="AddReport" >
+        <form enctype="multipart/form-data" asp-controller="Home" asp-action="AddReport">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
             <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input required type="text" asp-for="FirstName" name="firstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input required type="text" asp-for="LastName" name="lastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurchaseLocation" class="control-label"></label>
+                <input required type="text" asp-for="PurchaseLocation" name="purchaseLocation" class="form-control" />
+                <span asp-validation-for="PurchaseLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NameOfFuelingStation" class="control-label"></label>
+                <input required type="text" asp-for="NameOfFuelingStation" name="nameOfFuelingStation" class="form-control" />
+                <span asp-validation-for="NameOfFuelingStation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatePurchased" class="control-label"></label>
+                <input required  asp-for="DatePurchased" name="datePurchased" class="form-control" />
+                <span asp-validation-for="DatePurchased" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input required type="number" asp-for="PhoneNumber" name="phoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <img hidden src="" id="idimg" style="width: 100px; height: 100px;" />
                 <label asp-for="ProofOfVehicleOwnerShip" class="control-label"></label>
-                <input type="file" required accept=".txt,.doc,.jpg ,.docx,.png" name="file" id="file" />
+                <input type="file" required accept=".txt,.doc,.jpg ,.docx,.png" name="file" id="idimg"onchange="readURL(this)" />
                 <span asp-validation-for="ProofOfVehicleOwnerShip" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <img hidden src="" id="file" style="width: 100px; height: 100px;" />
                 <label asp-for="PurchaseReciept" class="control-label"></label>
-                <input type="file" required accept=".txt,.doc,.jpg ,.docx,.png" name="file" id="file" />
+                <input type="file" required accept=".txt,.doc,.jpg ,.docx,.png" name="file" id="file"  onchange="readImage(this)" />
                 <span asp-validation-for="PurchaseReciept" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,5 +67,43 @@
 </div>
 
 @section Scripts {
+
+<script>
+     function readURL(input) {
+         if (input.files && input.files[0]) {
+            if (input.files.size > 2048) {
+                console.error('File is too large. Over 2MB');
+            }
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#idimg')
+                    .removeAttr('hidden');
+                $('#idimg')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+               
+         }
+     }
+
+    function readImage(input) {
+        if (input.files && input.files[0]) {
+            if (input.files.size > 2e+6) {
+                console.error('File is too large. Over 2MB');
+            }
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#file')
+                    .removeAttr('hidden');
+                $('#file')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+           
+        }
+    }
+
+
+</script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

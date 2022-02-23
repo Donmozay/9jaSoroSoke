@@ -10,5 +10,7 @@ namespace _9jasorosoke.Interface
         Task<string> SaveReport(ICarOwnerViewModel carOwnerReport);
 
         Task<IEnumerable<ICarOwner>> GetCarOwnerReports();
+
+        Task<ICarOwner> GetCarOwnerReportById(int id);
     }
 }

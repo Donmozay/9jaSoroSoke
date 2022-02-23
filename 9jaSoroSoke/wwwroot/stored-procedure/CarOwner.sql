@@ -6,7 +6,13 @@ create table CarOwner(
 Id int identity(1,1) NOT NULL ,
 ProofOfVehicleOwnerShip varchar(max)Not Null,
 PurchaseReciept varchar(max)Not Null,
-DateReported datetime null
+FirstName varchar(50)Not Null,
+LastName varchar(50)Not Null,
+PurchaseLocation varchar(200)Not Null,
+NameOfFuelingStation varchar(250)Not Null,
+PhoneNumber varchar(15)Not Null,
+DateReported datetime null,
+DatePurchased datetime not null
 )
 end
 
@@ -24,6 +30,12 @@ go
 create procedure usp_Insert_CarOwner(
 @ProofOfVehicleOwnerShip varchar(max),
 @PurchaseReciept varchar(max),
+@FirstName varchar(50),
+@LastName varchar(50),
+@PurchaseLocation varchar(200),
+@NameOfFuelingStation varchar(250),
+@PhoneNumber varchar(15),
+@DatePurchased datetime ,
 @DateReported datetime 
 )
 AS
@@ -32,12 +44,24 @@ begin
 INSERT [dbo].[CarOwner](
 ProofOfVehicleOwnerShip,
 PurchaseReciept,
+FirstName,
+LastName,
+PurchaseLocation,
+NameOfFuelingStation,
+PhoneNumber,
+DatePurchased,
 DateReported
 )
 values(
 
 @ProofOfVehicleOwnerShip,
 @PurchaseReciept,
+@FirstName,
+@LastName,
+@PurchaseLocation,
+@NameOfFuelingStation,
+@PhoneNumber,
+@DatePurchased,
 @DateReported
 )
 end
@@ -64,18 +88,21 @@ ORDER BY CarOwner.Id desc
 GO
 
 
+-------------------------------------- STORED PROCEDURE TO  GET  CarOwner Reports By Id-----------------------------------------
 
-IF OBJECT_ID('[dbo].[Update_CarOwner_Report_By_Id]') IS nOT NULL
+
+
+if object_id('[dbo].[usp_Get_CarOnwer_Reports_By_Id') IS NOT NULL
 BEGIN
-DROP procedure [dbo].Update_CarOwner_Report_By_Id
-END
-GO
-create procedure [dbo].Update_CarOwner_Report_By_Id(
-@Id int,
-@ProofOfVehicleOwnerShip varchar(max),
-@PurchaseReciept varchar(max)
-)
+drop procedure [dbo].usp_Get_CarOnwer_Reports_By_Id
+end
+go
+CREATE procedure [dbo].usp_Get_CarOnwer_Reports_By_Id
+(@Id int)
 AS
 
-Update CarOwner set ProofOfVehicleOwnerShip=@ProofOfVehicleOwnerShip, PurchaseReciept = @PurchaseReciept   where Id=@Id
+select * from  [dbo].[CarOwner]
+where CarOwner.Id = @Id
+
 GO
+
