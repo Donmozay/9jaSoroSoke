@@ -24,7 +24,7 @@ namespace _9jaSoroSoke.Controllers
             _generalService = generalService;
         }
 
-        public IActionResult Index()
+        public IActionResult LandingPage()
         {
             return View();
         }
@@ -43,11 +43,11 @@ namespace _9jaSoroSoke.Controllers
         {
             var view = await _generalService.GetCarOwnerReports();
 
-            return View("CarOwnersReports", view);
+            return PartialView("CarOwnersReports", view);
         }
         public IActionResult CarOwnersReport()
         {
-            return View("CarOwnersReport");
+            return View("CarOwnerReport");
         }
 
         [HttpGet]
@@ -88,14 +88,14 @@ namespace _9jaSoroSoke.Controllers
         [HttpGet]
         public async Task<IActionResult> CompanyOwnerDetails(int id)
         {
-            var view = await _generalService.GetCarOwnerReporByIds(id);
+            var view = await _generalService.GetCompanyOwnerReporById(id);
 
             return View("CompanyOwnerDetails", view);
         }
         [HttpGet]
         public async Task<IActionResult> CompanyOwnersReports()
         {
-            var view = await _generalService.GetCarOwnerReports();
+            var view = await _generalService.GetCompanyOwnerReports();
 
             return View("CompanyOwnersReports", view);
         }
@@ -107,7 +107,7 @@ namespace _9jaSoroSoke.Controllers
         [HttpGet]
         public IActionResult AddCompanyOwnerReport(string processingMessage)
         {
-            var view = _generalService.CreateCarownerView(processingMessage);
+            var view = _generalService.CreateCompanyOwnerView(processingMessage);
             return View("AddCompanyOwnerReport", view);
         }
 

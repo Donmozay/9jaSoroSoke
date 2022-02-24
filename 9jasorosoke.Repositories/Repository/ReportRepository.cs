@@ -91,7 +91,7 @@ namespace _9jasorosoke.Repositories.Repository
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
                 DynamicParameters parameters = new DynamicParameters();
-                var record = await conn.QueryMultipleAsync("[dbo].[usp_Get_CarOnwers_Reports]", parameters, commandType: CommandType.StoredProcedure);
+                var record = await conn.QueryMultipleAsync("[dbo].[usp_Get_CompanyOnwers_Reports]", parameters, commandType: CommandType.StoredProcedure);
                 var result = await record.ReadAsync<CompanyOwnerModel>();
                 var value = result.AsList();
                 return value;

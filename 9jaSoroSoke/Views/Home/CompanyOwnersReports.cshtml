@@ -1,0 +1,46 @@
+﻿@model IEnumerable<_9jasorosoke.Repositories.Models.CompanyOwnerModel>
+
+@{
+    ViewData["Title"] = "CompanyOwnersReports";
+}
+
+<h1>CompanyOwnersReports</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyPhoneNumber)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FuelDepotName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyPhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FuelDepotName)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "CompanyOwnerDetails", new {  id=item.Id }) |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

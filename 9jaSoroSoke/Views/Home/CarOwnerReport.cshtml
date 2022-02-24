@@ -1,0 +1,20 @@
+﻿<div class="card-header bg-transparent border-0 row">
+    <div class="col-md-6 col-sm-6">
+        <form action="~/home/CompanyOwnersReports">
+            <input class="form-control" name="searchString" id="searchString" onkeyup="searchFunction()" placeholder="Search here..." required type="text">
+        </form>
+    </div>
+    @*<div class="col-md-6 col-sm-6 text-right">
+            <a class="btn-sm btn btn-outline-primary" onclick="addFunction()" title="AddEmployee">Add Employee  </a>
+        </div>*@
+</div>
+<br />
+<div class="loader">
+
+</div>
+<div id="list">
+
+</div>
+@section Scripts{
+    <script src="~/js/custom.js"></script>
+}

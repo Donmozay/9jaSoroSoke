@@ -40,6 +40,8 @@ namespace _9jaSoroSoke
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IGeneralService, GeneralService>();
             services.AddScoped<ICarOwnerViewModel, CarOwnerViewModel>();
+            services.AddScoped<ICompanyOwner, CompanyOwnerModel>();
+            services.AddScoped<ICompanyOwnerViewModel, CompanyOwnerViewModel>();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
         }
 
@@ -67,7 +69,7 @@ namespace _9jaSoroSoke
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=LandingPage}/{id?}");
             });
         }
     }
