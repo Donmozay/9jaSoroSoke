@@ -2,45 +2,79 @@
 
 @{
     ViewData["Title"] = "CompanyOwnersReports";
+    Layout = null;
 }
 
-<h1>CompanyOwnersReports</h1>
+<link href="~/css/aos.css" rel="stylesheet" />
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/css/tooplate-gymso-style.css" rel="stylesheet" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CompanyName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompanyPhoneNumber)
-            </th>
+<section class="schedule section" id="company">
+    <div class="container">
+        <div class="row">
 
-            <th>
-                @Html.DisplayNameFor(model => model.FuelDepotName)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyPhoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FuelDepotName)
-                </td>
+            <div class="col-lg-12 col-12 text-center">
+                <h6 data-aos="fade-up">our weekly GYM schedules</h6>
 
-                <td>
-                    @Html.ActionLink("Details", "CompanyOwnerDetails", new {  id=item.Id }) |
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <h2 class="text-white" data-aos="fade-up" data-aos-delay="200">Workout Timetable</h2>
+            </div>
+            @if (Model != null)
+            {
+                <div class="col-lg-12 py-5 col-md-12 col-12">
+                    <table class="table table-bordered table-responsive schedule-table" data-aos="fade-up" data-aos-delay="300">
+
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Company Phone Number</th>
+                                <th scope="col">Fuel Depot Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            @Html.DisplayFor(modelItem => item.CompanyName)
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            @Html.DisplayFor(modelItem => item.CompanyPhoneNumber)
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            @Html.DisplayFor(modelItem => item.FuelDepotName)
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <button>
+                                            @Html.ActionLink("Details", "CompanyOwnerDetails", new { id = item.Id }) |
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="valid-feedback">
+                    No Report Found for Company Owners
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/aos.js"></script>
+<script src="~/js/smoothscroll.js"></script>
+<script src="~/js/custom.js"></script>

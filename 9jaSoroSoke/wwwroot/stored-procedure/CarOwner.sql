@@ -12,7 +12,7 @@ PurchaseLocation varchar(200)Not Null,
 NameOfFuelingStation varchar(250)Not Null,
 PhoneNumber varchar(15)Not Null,
 DateReported datetime null,
-DatePurchased datetime not null
+DatePurchased date not null
 )
 end
 
@@ -35,7 +35,7 @@ create procedure usp_Insert_CarOwner(
 @PurchaseLocation varchar(200),
 @NameOfFuelingStation varchar(250),
 @PhoneNumber varchar(15),
-@DatePurchased datetime ,
+@DatePurchased date ,
 @DateReported datetime 
 )
 AS

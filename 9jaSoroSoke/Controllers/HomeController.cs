@@ -24,9 +24,13 @@ namespace _9jaSoroSoke.Controllers
             _generalService = generalService;
         }
 
-        public IActionResult LandingPage()
+        public IActionResult LandingPage(string message)
         {
-            return View();
+            var view = new LandingPageView
+            {
+                Message = message
+            };
+            return View("LandingPage" ,view);
         }
 
         #region ------------------ Car Owner Report ----------------------------
@@ -45,10 +49,7 @@ namespace _9jaSoroSoke.Controllers
 
             return PartialView("CarOwnersReports", view);
         }
-        public IActionResult CarOwnersReport()
-        {
-            return View("CarOwnerReport");
-        }
+       
 
         [HttpGet]
         public IActionResult AddReport(string processingMessage)
@@ -58,7 +59,7 @@ namespace _9jaSoroSoke.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddReport([FromForm] CarOwnerViewModel carOwnerReport)
+        public IActionResult AddReport([FromForm] CarOwnerViewModel carOwnerReport)
         {
             string processingMessage = string.Empty;
             if (carOwnerReport == null)
@@ -68,17 +69,17 @@ namespace _9jaSoroSoke.Controllers
             if (!ModelState.IsValid)
             {
                 var model = this._generalService.CreateCarownerView(carOwnerReport, processingMessage);
-                return View("AddReport", model);
+                return View("LandingPage", model);
             };
-            var returnInfo  = await this._generalService.SaveReport(carOwnerReport);
+            var returnInfo  =  this._generalService.SaveReport(carOwnerReport);
 
             if (!string.IsNullOrEmpty(returnInfo))
             {
                 var model = this._generalService.CreateCarownerView(carOwnerReport, processingMessage);
-                return View("AddReport", model);
+                return RedirectToAction("LandingPage", new { message = returnInfo });
             }
-
-            return this.RedirectToAction("CarOwnersReports", "Home");
+            processingMessage = "Your report has been saved successfully";
+            return RedirectToAction("LandingPage", new { message = processingMessage });
         }
 
         #endregion
@@ -99,10 +100,7 @@ namespace _9jaSoroSoke.Controllers
 
             return View("CompanyOwnersReports", view);
         }
-        public IActionResult CompanyOwnersReport()
-        {
-            return View("CompanyOwnersReport");
-        }
+       
 
         [HttpGet]
         public IActionResult AddCompanyOwnerReport(string processingMessage)
@@ -112,7 +110,7 @@ namespace _9jaSoroSoke.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCompanyOwnerReport([FromForm] CompanyOwnerViewModel companyOwnerReport)
+        public IActionResult AddCompanyOwnerReport([FromForm] CompanyOwnerViewModel companyOwnerReport)
         {
             string processingMessage = string.Empty;
             if (companyOwnerReport == null)
@@ -122,17 +120,17 @@ namespace _9jaSoroSoke.Controllers
             if (!ModelState.IsValid)
             {
                 var model = this._generalService.CreateCompanyOwnerView(companyOwnerReport, processingMessage);
-                return View("AddCompanyOwnerReport", model);
+                return View("LandingPage", model);
             };
-            var returnInfo = await this._generalService.SaveCompanyOwnerReport(companyOwnerReport);
+            var returnInfo =  this._generalService.SaveCompanyOwnerReport(companyOwnerReport);
 
             if (!string.IsNullOrEmpty(returnInfo))
             {
                 var model = this._generalService.CreateCompanyOwnerView(companyOwnerReport, processingMessage);
-                return View("AddCompanyOwnerReport", model);
+                return RedirectToAction("LandingPage", new { message = returnInfo });
             }
-
-            return this.RedirectToAction("CompanyOwnersReports", "Home");
+            processingMessage = "Your report has been saved successfully";
+            return RedirectToAction("LandingPage", new { message = processingMessage });
         }
 
         #endregion

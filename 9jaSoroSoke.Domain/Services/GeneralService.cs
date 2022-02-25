@@ -58,8 +58,10 @@ namespace _9jaSoroSoke.Domain.Services
             return viewModel;
         }
 
-        public Task<string> SaveReport(ICarOwnerViewModel carOwnerReport)
+        public string SaveReport(ICarOwnerViewModel carOwnerReport)
         {
+            var processMessage = string.Empty;
+
             var file = carOwnerReport.File;
 
             var uploadResult = new ImageUploadResult();
@@ -68,7 +70,8 @@ namespace _9jaSoroSoke.Domain.Services
             {
                 foreach (var item in file)
                 {
-                    if (item.Length! > 5120)
+                    // check if iimage size is higher than 5Mb
+                    if (item.Length < 5242880)
                     {
                         if (item == file[0])
                         {
@@ -97,6 +100,10 @@ namespace _9jaSoroSoke.Domain.Services
                             }
                             carOwnerReport.PurchaseReciept = uploadResult?.Url?.ToString();
                         }
+                    }
+                    else
+                    {
+                        return processMessage = "Picture Size cannot be more than 5MB";
                     }
                 }
             }
@@ -129,15 +136,17 @@ namespace _9jaSoroSoke.Domain.Services
             return viewModel;
         }
 
-        public Task<string> SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwnerReport)
+        public string SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwnerReport)
         {
+            var processMessage = string.Empty;
+
             var file = companyOwnerReport.File;
 
             var uploadResult = new ImageUploadResult();
 
             if (file != null)
             {
-                if (file.Length! > 5120)
+                if (file.Length < 5242880)
                 {
                     using (var stream = file.OpenReadStream())
                     {
@@ -150,7 +159,12 @@ namespace _9jaSoroSoke.Domain.Services
                     }
                     companyOwnerReport.PurchaseReciept = uploadResult?.Url?.ToString();
                 }
+                else
+                {
+                    return processMessage = "Picture Size cannot be more than 5MB";
+
                 }
+            }
             return _reportRepository.SaveCompanyOwnerReport(companyOwnerReport);
         }
         #endregion

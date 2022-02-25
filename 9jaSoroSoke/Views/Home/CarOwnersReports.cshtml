@@ -2,11 +2,14 @@
 
 @{
     ViewData["Title"] = "CarOwnersReports";
+    Layout = null;
 }
-
+<link href="~/css/aos.css" rel="stylesheet" />
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/font-awesome.min.css" rel="stylesheet" />
 <link href="~/css/tooplate-gymso-style.css" rel="stylesheet" />
 
-<section class="schedule section" id="schedule">
+<section class="schedule section" id="car">
     <div class="container">
         <div class="row">
 
@@ -60,10 +63,16 @@
             else
             {
                 <div class="valid-feedback">
-                    No Record Found
+                    No Report Found for Car Onwer
                 </div>
             }
 
         </div>
     </div>
 </section>
+
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/aos.js"></script>
+<script src="~/js/smoothscroll.js"></script>
+<script src="~/js/custom.js"></script>

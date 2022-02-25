@@ -9,8 +9,7 @@ namespace _9jasorosoke.Interface
     {
         #region ------------------ Car Owner Report ----------------------------
 
-        Task<string> SaveReport(ICarOwnerViewModel carOwnerReport);
-
+        string SaveReport(ICarOwnerViewModel carOwnerReport);
         Task<IEnumerable<ICarOwner>> GetCarOwnerReports();
 
         Task<ICarOwner> GetCarOwnerReportById(int id);
@@ -20,8 +19,7 @@ namespace _9jasorosoke.Interface
 
         Task<IEnumerable<ICompanyOwner>> GetCompanyOwnerReports();
 
-        Task<string> SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwner);
-
+        string SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwner);
         Task<ICompanyOwner> GetCompanyOwnerReportById(int id);
         #endregion
     }

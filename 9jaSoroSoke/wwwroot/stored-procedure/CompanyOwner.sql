@@ -11,7 +11,7 @@ FuelDepotName varchar(150)Not Null,
 FuelDepotAddress varchar(250)Not Null,
 CompanyPhoneNumber varchar(15)Not Null,
 DateReported datetime null,
-DatePurchased datetime not null
+DatePurchased date not null
 )
 end
 
@@ -33,7 +33,7 @@ create procedure usp_Insert_CompanyOwner_Report(
 @FuelDepotName varchar(150),
 @FuelDepotAddress varchar(250),
 @CompanyPhoneNumber varchar(15),
-@DatePurchased datetime ,
+@DatePurchased date ,
 @DateReported datetime 
 )
 AS

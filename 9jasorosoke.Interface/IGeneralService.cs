@@ -13,7 +13,7 @@ namespace _9jasorosoke.Interface
         ICarOwnerViewModel CreateCarownerView(ICarOwnerViewModel viewModel, string message);
         Task<IEnumerable<ICarOwner>> GetCarOwnerReports();
         Task<ICarOwner> GetCarOwnerReporByIds(int id);
-        Task<string> SaveReport(ICarOwnerViewModel carOwnerReport);
+        string SaveReport(ICarOwnerViewModel carOwnerReport);
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace _9jasorosoke.Interface
 
         ICompanyOwnerViewModel CreateCompanyOwnerView(ICompanyOwnerViewModel viewModel, string message);
 
-        Task<string> SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwnerReport);
+        string SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwnerReport);
         #endregion
     }
 }

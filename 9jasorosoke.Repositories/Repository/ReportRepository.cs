@@ -2,6 +2,7 @@
 using _9jasorosoke.Repositories.DataAccess;
 using _9jasorosoke.Repositories.Models;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -35,28 +36,45 @@ namespace _9jasorosoke.Repositories.Repository
         }
 
 
-        public async Task<string> SaveReport(ICarOwnerViewModel carOwnerReport)
+        public  string SaveReport(ICarOwnerViewModel carOwnerReport)
         {
             var result = string.Empty;
-           
+
             try
             {
-                using (IDbConnection conn = await _databaseManager.DatabaseConnection())
+                using (SqlConnection conn = new SqlConnection(ConnectionString.MyConnectionString))
+                using (SqlCommand cmd = new SqlCommand("dbo.usp_Insert_CarOwner", conn))
                 {
-                    if (conn.State == ConnectionState.Closed) conn.Open();
-                    DynamicParameters parameters = new DynamicParameters();
-                    parameters.Add("@FirstName", carOwnerReport.FirstName);
-                    parameters.Add("@LastName", carOwnerReport.LastName);
-                    parameters.Add("@PhoneNumber", carOwnerReport.PhoneNumber);
-                    parameters.Add("@PurchaseLocation", carOwnerReport.PurchaseLocation);
-                    parameters.Add("@NameOfFuelingStation", carOwnerReport.NameOfFuelingStation);
-                    parameters.Add("@DatePurchased", carOwnerReport.DatePurchased);
-                    parameters.Add("@ProofOfVehicleOwnerShip", carOwnerReport.ProofOfVehicleOwnerShip);
-                    parameters.Add("@PurchaseReciept", carOwnerReport.PurchaseReciept);
-                    parameters.Add("@DateReported",DateTime.Now);
-                    var respone = conn.Execute("[dbo].[usp_Insert_CarOwner]", parameters, commandType: CommandType.StoredProcedure);
-                    conn.Close();
-                    return null;
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // set up the parameters
+                    cmd.Parameters.Add("@FirstName", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@LastName", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@PhoneNumber", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@PurchaseLocation", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@DatePurchased", SqlDbType.Date);
+                    cmd.Parameters.Add("@NameOfFuelingStation", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@ProofOfVehicleOwnerShip", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@PurchaseReciept", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@DateReported", SqlDbType.DateTime);
+
+                   
+                    // set parameter values
+                    cmd.Parameters["@FirstName"].Value = carOwnerReport.FirstName;
+                    cmd.Parameters["@LastName"].Value = carOwnerReport.LastName;
+                    cmd.Parameters["@PhoneNumber"].Value = carOwnerReport.PhoneNumber;
+                    cmd.Parameters["@PurchaseLocation"].Value = carOwnerReport.PurchaseLocation;
+                    cmd.Parameters["@PurchaseReciept"].Value = carOwnerReport.PurchaseReciept;
+                    cmd.Parameters["@ProofOfVehicleOwnerShip"].Value = carOwnerReport.ProofOfVehicleOwnerShip;
+                    cmd.Parameters["@DatePurchased"].Value = carOwnerReport.DatePurchased;
+                    cmd.Parameters["@DateReported"].Value = DateTime.Now;
+
+                    // open connection and execute stored procedure
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                   
+                    return result;
                 }
             }
             catch (Exception e)
@@ -99,34 +117,52 @@ namespace _9jasorosoke.Repositories.Repository
         }
 
 
-        public async Task<string> SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwner)
+        public string SaveCompanyOwnerReport(ICompanyOwnerViewModel companyOwner)
         {
             var result = string.Empty;
-
             try
             {
-                using (IDbConnection conn = await _databaseManager.DatabaseConnection())
+                using (SqlConnection conn = new SqlConnection(ConnectionString.MyConnectionString))
+                using (SqlCommand cmd = new SqlCommand("dbo.usp_Insert_CompanyOwner_Report", conn))
                 {
-                    if (conn.State == ConnectionState.Closed) conn.Open();
-                    DynamicParameters parameters = new DynamicParameters();
-                    parameters.Add("@CompanyAddress", companyOwner.CompanyAddress);
-                    parameters.Add("@CompanyName", companyOwner.CompanyName);
-                    parameters.Add("@CompanyPhoneNumber", companyOwner.CompanyPhoneNumber);
-                    parameters.Add("@FuelDepotAddress", companyOwner.FuelDepotAddress);
-                    parameters.Add("@FuelDepotName", companyOwner.FuelDepotName);
-                    parameters.Add("@DatePurchased", companyOwner.DatePurchased);
-                    parameters.Add("@PurchaseReciept", companyOwner.PurchaseReciept);
-                    parameters.Add("@DateReported", DateTime.Now);
-                    var respone = conn.Execute("[dbo].[usp_Insert_CompanyOwner_Report]", parameters, commandType: CommandType.StoredProcedure);
-                    conn.Close();
-                    return null;
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // set up the parameters
+                    cmd.Parameters.Add("@CompanyAddress", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@CompanyName", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@CompanyPhoneNumber", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@FuelDepotAddress", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@DatePurchased", SqlDbType.Date);
+                    cmd.Parameters.Add("@PurchaseReciept", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@FuelDepotName", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@DateReported", SqlDbType.DateTime);
+
+                   
+
+                    // set parameter values
+                    cmd.Parameters["@CompanyAddress"].Value = companyOwner.CompanyAddress;
+                    cmd.Parameters["@CompanyName"].Value = companyOwner.CompanyName;
+                    cmd.Parameters["@CompanyPhoneNumber"].Value = companyOwner.CompanyPhoneNumber;
+                    cmd.Parameters["@FuelDepotAddress"].Value = companyOwner.FuelDepotAddress;
+                    cmd.Parameters["@FuelDepotName"].Value = companyOwner.FuelDepotName;
+                    cmd.Parameters["@PurchaseReciept"].Value = companyOwner.PurchaseReciept;
+                    cmd.Parameters["@DatePurchased"].Value = companyOwner.DatePurchased;
+                    cmd.Parameters["@DateReported"].Value = DateTime.Now;
+
+                    // open connection and execute stored procedure
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+
+                    return result;
                 }
             }
             catch (Exception e)
             {
-                result = string.Format("Save Compant Owner Report - {0} , {1}", e.Message,
+                result = string.Format("Save Report - {0} , {1}", e.Message,
                     e.InnerException != null ? e.InnerException.Message : "");
             }
+
             return result;
         }
 
