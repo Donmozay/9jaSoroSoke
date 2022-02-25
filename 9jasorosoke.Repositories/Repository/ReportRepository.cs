@@ -63,6 +63,7 @@ namespace _9jasorosoke.Repositories.Repository
                     cmd.Parameters["@FirstName"].Value = carOwnerReport.FirstName;
                     cmd.Parameters["@LastName"].Value = carOwnerReport.LastName;
                     cmd.Parameters["@PhoneNumber"].Value = carOwnerReport.PhoneNumber;
+                    cmd.Parameters["@NameOfFuelingStation"].Value = carOwnerReport.NameOfFuelingStation;
                     cmd.Parameters["@PurchaseLocation"].Value = carOwnerReport.PurchaseLocation;
                     cmd.Parameters["@PurchaseReciept"].Value = carOwnerReport.PurchaseReciept;
                     cmd.Parameters["@ProofOfVehicleOwnerShip"].Value = carOwnerReport.ProofOfVehicleOwnerShip;

@@ -177,6 +177,7 @@
 
                 <div class="modal-body">
                     <form class="membership-form webform" role="form" enctype="multipart/form-data" asp-controller="Home" asp-action="AddCompanyOwnerReport">
+                        @Html.AntiForgeryToken()
                         <div class="row">
                             <div class="col-6">
                                 <input required type="text" class="form-control" name="companyName" placeholder="Company Name">
@@ -229,6 +230,7 @@
 
                 <div class="modal-body">
                     <form class="membership-form webform" role="form" enctype="multipart/form-data" asp-controller="Home" asp-action="AddReport">
+                        @Html.AntiForgeryToken()
                         <div class="row">
                             <div class="col-6">
                                 <input required type="text" class="form-control" name="firstName" placeholder="First Name">
