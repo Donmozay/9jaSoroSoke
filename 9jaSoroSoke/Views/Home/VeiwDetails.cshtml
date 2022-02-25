@@ -2,75 +2,90 @@
 
 @{
     ViewData["Title"] = "GetCarOwnersReportById";
-    
-        var ProofOfVehicleOwnerShip = Model.ProofOfVehicleOwnerShip;
-        var PurchaseReciept = Model.PurchaseReciept;
 
+    var ProofOfVehicleOwnerShip = Model.ProofOfVehicleOwnerShip;
+    var PurchaseReciept = Model.PurchaseReciept;
+    Layout = null;
 }
 
-<h1>Car Owner Report Details </h1>
+<link href="~/css/aos.css" rel="stylesheet" />
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/css/tooplate-gymso-style.css" rel="stylesheet" />
 
-<div>
-    <h4>CarOwner</h4>
-    <hr />
-    <dl class="row">
-        
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProofOfVehicleOwnerShip)
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@ProofOfVehicleOwnerShip" id="idimg" style="width: 50px; height: 50px;" />
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchaseReciept)
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@PurchaseReciept" id="idimg" style="width: 50px; height: 50px;" />
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchaseLocation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PurchaseLocation)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NameOfFuelingStation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NameOfFuelingStation)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DatePurchased)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DatePurchased)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateReported)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateReported)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="CarOwnersReports">Back to List</a>
-</div>
+<section class="feature" id="feature">
+    <div class="container">
+        <div class="row">
+            <div class="mr-lg-auto mt-auto col-lg-12 col-md-12 col-12">
+                <div class="about-working-hours">
+                    <div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Purchase Reciept : <br />
+                                    <img src="@PurchaseReciept" id="idimg" style="width: 350px; height: 350px;" />
+                                </strong> <br />
+                            </div>
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Proof Of Vehicle OwnerShip :
+                                    <img src="@ProofOfVehicleOwnerShip" id="idimg" style="width: 350px; height: 350px;" />
+                                </strong> <br />
+                            </div>
+                        </div>
+                       
+                       
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    First Name : @Model.FirstName
+                                </strong> <br />
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Last Name : @Model.LastName
+                                </strong> <br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Phone Number : @Model.PhoneNumber
+                                </strong> <br />
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Date Purchased : @Model.DatePurchased.ToShortDateString()
+                                </strong> <br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Name Of Fueling Station : @Model.NameOfFuelingStation
+                                </strong> <br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Date Reported : @Model.DateReported
+                                </strong> <br />
+
+                            </div>
+                        </div>
+
+                        <a href="~/Home/LandingPage" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="">Back to List</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/aos.js"></script>
+<script src="~/js/smoothscroll.js"></script>
+<script src="~/js/custom.js"></script>

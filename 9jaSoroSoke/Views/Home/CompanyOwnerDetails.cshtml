@@ -2,64 +2,79 @@
 
 @{
     ViewData["Title"] = "CompanyOwnerDetails";
-            var PurchaseReciept = Model.PurchaseReciept;
+    var PurchaseReciept = Model.PurchaseReciept;
+    Layout = null;
 }
 
-<h1>Company Owner Details</h1>
+<link href="~/css/aos.css" rel="stylesheet" />
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/css/tooplate-gymso-style.css" rel="stylesheet" />
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchaseReciept)
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@PurchaseReciept" id="idimg" style="width: 50px; height: 50px;" />
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyAddress)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyAddress)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FuelDepotName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FuelDepotName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FuelDepotAddress)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FuelDepotAddress)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyPhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyPhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatePurchased)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DatePurchased)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateReported)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateReported)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="CompanyOwnersReports">Back to List</a>
-</div>
+<section class="feature" id="feature">
+    <div class="container">
+        <div class="row">
+            <div class="mr-lg-auto mt-auto col-lg-12 col-md-12 col-12">
+                <div class="about-working-hours">
+                    <div>
+                        <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                            Purchase Reciept : <br />
+                            <img src="@PurchaseReciept" id="idimg" style="width: 350px; height: 350px;" />
+                        </strong> <br />
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Company Name : @Model.CompanyName
+                                </strong> <br />
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Company Phone Number: @Model.CompanyPhoneNumber
+                                </strong> <br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Company Address : @Model.CompanyAddress
+                                </strong> <br />
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Date Purchased : @Model.DatePurchased.ToShortDateString()
+                                </strong> <br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Fuel Depot Name : @Model.FuelDepotName
+                                </strong> <br />
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Fuel Depot Address : @Model.FuelDepotAddress
+                                </strong> <br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="d-block" data-aos="fade-up" data-aos-delay="600">
+                                    Date Reported : @Model.DateReported
+                                </strong> <br />
+
+                            </div>
+                        </div>
+
+                        <a href="~/Home/LandingPage" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="">Back to List</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/aos.js"></script>
+<script src="~/js/smoothscroll.js"></script>
+<script src="~/js/custom.js"></script>
